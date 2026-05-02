@@ -1,0 +1,33 @@
+{
+  "default": [
+    {
+      "type": "fix_stamp",
+      "output": "/ST"
+    },
+    {
+      "type": "move",
+      "dest": "/ST/{{ROOM_NAME}}/{{ROOM_NAME}}_{{RECORD_START}}-{{RECORD_DURATION_STR}}.mp4",
+      "date_pattern": "yyyyMMdd-HH.mm"
+    },
+    {
+      "type": "shell",
+      "noreturn": true,
+      "remove_input": false,
+      "args": [
+        "sh",
+        "-c",
+        "rm -f \"{{INPUT_DIR}}/{{FILE_NAME_NOEXT}}.event\" \"{{INPUT_DIR}}/{{FILE_NAME_NOEXT}}.fixed.event\" || true"
+      ]
+    },
+     {
+        "type": "shell",
+        "noreturn": true,
+        "remove_input": false,
+        "args": [
+            "/opt/ffmpeg-queue/make-thumb-auto.sh",
+            "{{INPUT}}",
+            "{{INPUT_DIR}}/{{FILE_NAME_NOEXT}}.thumb.jpg"
+        ]
+        }
+  ]
+}
